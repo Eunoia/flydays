@@ -7,4 +7,12 @@ describe Flyday do
 			expect(flyday.airline).to eq('southwest')
 		end
 	end
+
+	describe '.search' do
+		it 'returns a page of flights' do
+			flyday = Flyday.new
+			flights = flyday.search(Date.today)
+			expect(flights).to match(/No plane change/)
+		end
+	end
 end
