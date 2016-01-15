@@ -12,7 +12,7 @@ describe Flyday do
 		it 'returns a page of flights' do
 			flyday = Flyday.new
 			flights = flyday.search(Date.today)
-			expect(flights).to match(/No plane change/)
+			expect(flights).to match(/No plane change/i)
 		end
 	end
 end
