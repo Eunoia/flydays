@@ -3,13 +3,15 @@ require 'mechanize'
 class Flyday
   attr_reader :airline
 
-  def initialize
+  def initialize(use_proxy=false)
     @airline = 'southwest'
     @mechanize = Mechanize.new
-    @mechanize.agent.user_agent = "Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25"
-    # @mechanize.agent.set_proxy 'localhost', 8888
-    # @mechanize.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    # @mechanize.agent.certificate='charles.crt'
+    @mechanize.agent.user_agent = "Look, a custom user agent"
+    if use_proxy
+      @mechanize.agent.set_proxy 'localhost', 8888
+      @mechanize.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      @mechanize.agent.certificate='charles.crt'
+    end
     @mechanize.log = Logger.new "flyday.log"
   end
 
