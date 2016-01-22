@@ -14,5 +14,10 @@ describe Flyday do
 			flights = flyday.search(Date.today)
 			expect(flights).to match(/No plane change/i)
 		end
+		it 'takes a number of seats' do
+			flyday = Flyday.new
+			flights = flyday.search(Date.today, seats: 3)
+			expect(flights).to match(/No plane change/i)
+		end
 	end
 end
