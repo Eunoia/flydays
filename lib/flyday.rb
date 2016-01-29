@@ -1,5 +1,6 @@
 require 'mechanize'
 require 'json'
+require_relative 'flight'
 
 class Flyday
   attr_reader :airline
@@ -33,7 +34,7 @@ class Flyday
     }
     resp = @mechanize.get(url, params, nil, headers) rescue binding.pry
     if resp.code == '200'
-      JSON.parse(resp.body)['trips'][0]['airProducts']
+      JSON.parse(resp.body)['trips'][0]['airProducts'].map{ |l| Flight.new(l) }
     end
   end
 end
