@@ -16,11 +16,24 @@ class Flyday
     @mechanize.log = Logger.new "flyday.log"
   end
 
-  def search(date=Date.today, seats: 1)
-    post = @mechanize.post('https://mobile.southwest.com/middleware/MWServlet',
-    "flowName=book&omni_reload=false&twoWayTrip=false&returnAirport=&returnAirport_displayed=&fareType=DOLLARS&originAirport=MDW&originAirport_displayed=Chicago%20(Midway)%2C%20IL%20-%20MDW&destinationAirport=ATL&destinationAirport_displayed=Atlanta%2C%20GA%20-%20ATL&outboundDateString=#{date.strftime("%m%%2F%d%%2F%Y")}&omni_outboundDateString=01%2F19%2F2016&returnDateString=&omni_returnDateString=01%2F20%2F2016&outboundTimeOfDay=ANYTIME&returnTimeOfDay=&adultPassengerCount=#{seats}&seniorPassengerCount=0&promoCode=&serviceID=flightoptions&appID=swa&appver=2.19.0&channel=wap&platform=thinclient&cacheid=&rcid=spaiphone&",
-    { 'Cookie' => "cacheid=#{ENV["CACHEID"]};" })
-    json = JSON.parse(post.body)
-    json['out_flight_options']
+  def search(orig:'MDW', dest:'ATL', date:Date.today)
+    url = 'https://api-extensions.southwest.com/v1/mobile/flights/products'
+    params = {
+      'currency-type' => 'Dollars',
+      'number-adult-passengers' => '1',
+      'number-senior-passengers' => '0',
+      'promo-code' => '',
+      'origination-airport' => orig,
+      'destination-airport' => dest,
+      'departure-date' => date.strftime('%Y-%m-%d')
+    }
+    headers = {
+      'X-API-Key' => 'l7xx8d8bfce4ee874269bedc02832674129b',
+      'User-Agent' => 'Southwest/3.1.100 (iPad; iOS 8.3; Scale/2.00)'
+    }
+    resp = @mechanize.get(url, params, nil, headers) rescue binding.pry
+    if resp.code == '200'
+      JSON.parse(resp.body)['trips'][0]['airProducts']
+    end
   end
 end
