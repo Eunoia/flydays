@@ -12,7 +12,8 @@ describe Flyday do
 
   describe '.inspect' do
     it 'contains data about a flight' do
-      s = '<#Flyday::Flight MDW->ATL 2016-02-01 seats:24, price_range:222-329>'
+      ts = "2016-02-01T05:30"
+      s = "<#Flyday::Flight MDW->ATL #{ts} seats:24, price_range:222-329>"
       expect(@flight.inspect).to eq(s)
     end
   end

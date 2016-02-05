@@ -1,12 +1,13 @@
 class Flyday
   class Flight
-    attr_reader :orig, :dest, :departure_date, :segments
+    attr_reader :orig, :dest, :departure_date, :departure_time, :segments
     def initialize(blob)
       @blob = blob
       @segments = blob['segments']
       @orig = blob['segments'][0]['originationAirportCode']
       @dest = blob['segments'][-1]['destinationAirportCode']
-      @departure_date = blob['segments'][0]['departureDateTime'].split('T')[0]
+      departure_date_time = blob['segments'][0]['departureDateTime']
+      @departure_date, @departure_time = departure_date_time.split('T')
     end
 
     def flight_number
@@ -40,7 +41,7 @@ class Flyday
     end
 
     def inspect
-      "<#Flyday::Flight #{segments_path} #{departure_date} seats:#{seats_left}, price_range:#{price_range}>"
+      "<#Flyday::Flight #{segments_path} #{departure_date}T#{departure_time} seats:#{seats_left}, price_range:#{price_range}>"
     end
   end
 end
