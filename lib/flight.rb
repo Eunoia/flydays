@@ -40,6 +40,27 @@ class Flyday
       "#{min}-#{max}"
     end
 
+    def flatten
+      return [self] if @segments.length==1
+      @segments.map do |segment|
+        Flyday.new.search(
+          date: Date.parse(departure_date),
+          orig: segment["originationAirportCode"],
+          dest: segment["destinationAirportCode"]
+        ).detect do |f| 
+          f.flight_number == segment["marketingCarrierInfo"].values.join("") 
+        end
+      end
+    end
+
+    def takeoff_at
+      "#{departure_date}T#{departure_time}"
+    end
+
+    def land_at
+      @blob['segments'][-1]['arrivalDateTime']
+    end
+
     def inspect
       "<#Flyday::Flight #{segments_path} #{departure_date}T#{departure_time} seats:#{seats_left}, price_range:#{price_range}>"
     end

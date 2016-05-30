@@ -9,6 +9,7 @@ class Flyday
     @airline = 'southwest'
     @mechanize = Mechanize.new
     @mechanize.log = Logger.new "flyday.log"
+    @mechanize.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   end
 
   def search(orig:'MDW', dest:'ATL', date:Date.today)
@@ -24,6 +25,7 @@ class Flyday
     }
     headers = {
       'X-API-Key' => 'l7xx8d8bfce4ee874269bedc02832674129b',
+      'Content-Type' => "application/vnd.swacorp.com.accounts.login-v1.0+json",
       'User-Agent' => 'Southwest/3.1.100 (iPad; iOS 8.3; Scale/2.00)'
     }
     resp = @mechanize.get(url, params, nil, headers) rescue binding.pry
