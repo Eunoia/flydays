@@ -1,4 +1,5 @@
 class Flyday
+  # Flight contains the details of the flights between two cities.
   class Flight
     attr_reader :orig, :dest, :departure_date, :departure_time, :segments
     def initialize(blob)
@@ -13,10 +14,6 @@ class Flyday
     def flight_number
       @segments.map { |s| s['operatingCarrierInfo'].values.join }.join(' ')
     end
-
-    # def segments
-    #   # @segments.map{ |s| Flight.new(s) }
-    # end
 
     def seats_left
       @blob['fareProducts'].map { |p| p['seatsAvailable'].to_i }.inject(:+)
@@ -41,14 +38,14 @@ class Flyday
     end
 
     def flatten
-      return [self] if @segments.length==1
+      return [self] if @segments.length == 1
       @segments.map do |segment|
         Flyday.new.search(
           date: Date.parse(departure_date),
-          orig: segment["originationAirportCode"],
-          dest: segment["destinationAirportCode"]
-        ).detect do |f| 
-          f.flight_number == segment["marketingCarrierInfo"].values.join("") 
+          orig: segment['originationAirportCode'],
+          dest: segment['destinationAirportCode']
+        ).detect do |f|
+          f.flight_number == segment['marketingCarrierInfo'].values.join('')
         end
       end
     end
@@ -62,7 +59,10 @@ class Flyday
     end
 
     def inspect
-      "<#Flyday::Flight #{segments_path} #{departure_date}T#{departure_time} seats:#{seats_left}, price_range:#{price_range}>"
+      object = '<#Flyday::Flight'
+      takeoff = "#{departure_date}T#{departure_time}"
+      fare_info = "seats:#{seats_left}, price_range:#{price_range}"
+      "#{object} #{segments_path} #{takeoff} #{fare_info}>"
     end
   end
 end

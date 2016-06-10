@@ -2,19 +2,20 @@ require 'mechanize'
 require 'json'
 require_relative 'flight'
 
+# The Flyday class contains the #search method for finding southwest flights
+# between two airports on a date. You can only search for one way tickets.
 class Flyday
   attr_reader :airline
 
-  def initialize(use_proxy=false)
+  def initialize
     @airline = 'southwest'
     @mechanize = Mechanize.new
-    @mechanize.log = Logger.new "flyday.log"
+    @mechanize.log = Logger.new 'flyday.log'
     @mechanize.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   end
 
-  def search(orig:'MDW', dest:'ATL', date:Date.today)
-    url = 'https://api-extensions.southwest.com/v1/mobile/flights/products'
-    params = {
+  def params(orig, dest, date)
+    {
       'currency-type' => 'Dollars',
       'number-adult-passengers' => '1',
       'number-senior-passengers' => '0',
@@ -23,14 +24,20 @@ class Flyday
       'destination-airport' => dest,
       'departure-date' => date.strftime('%Y-%m-%d')
     }
-    headers = {
+  end
+
+  def headers
+    {
       'X-API-Key' => 'l7xx8d8bfce4ee874269bedc02832674129b',
-      'Content-Type' => "application/vnd.swacorp.com.accounts.login-v1.0+json",
+      'Content-Type' => 'application/vnd.swacorp.com.accounts.login-v1.0+json',
       'User-Agent' => 'Southwest/3.1.100 (iPad; iOS 8.3; Scale/2.00)'
     }
-    resp = @mechanize.get(url, params, nil, headers) rescue binding.pry
-    if resp.code == '200'
-      JSON.parse(resp.body)['trips'][0]['airProducts'].map{ |l| Flight.new(l) }
-    end
+  end
+
+  def search(orig:'MDW', dest:'ATL', date:Date.today)
+    url = 'https://api-extensions.southwest.com/v1/mobile/flights/products'
+    resp = @mechanize.get(url, params(orig, dest, date), nil, headers)
+    fail 'Request Failed' if resp.code != '200'
+    JSON.parse(resp.body)['trips'][0]['airProducts'].map { |l| Flight.new(l) }
   end
 end
