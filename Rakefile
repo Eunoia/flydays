@@ -1,1 +1,3 @@
-require 'rspec/core/rake_task'
+source 'https://rubygems.org'
+
+gemspec

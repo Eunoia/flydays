@@ -7,3 +7,7 @@
 *.o
 *.a
 mkmf.log
+/.yardoc
+/Gemfile.lock
+/doc/
+/pkg/
