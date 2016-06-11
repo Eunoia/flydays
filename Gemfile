@@ -2,16 +2,4 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 
-gem 'guard'
-gem 'guard-rspec'
-gem 'rspec'
-gem 'rspec-nc'
-gem 'vcr'
-gem 'webmock'
-gem 'timecop'
-gem 'mechanize'
-gem 'rake'
-gem 'pry'
-gem 'pry-stack_explorer'
-gem 'awesome_print'
-gem 'simplecov'
+gemspec

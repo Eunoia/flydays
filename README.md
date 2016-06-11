@@ -1,5 +1,8 @@
 # Flydays
 
+[![Build Status](https://travis-ci.org/Eunoia/flydays.svg?branch=master)](https://travis-ci.org/Eunoia/flydays)
+[![Code Climate](https://codeclimate.com/github/Eunoia/flydays/badges/gpa.svg)](https://codeclimate.com/github/Eunoia/flydays)
+
 Lightweight gem to search southwest for one way flights between airports.
 
 ## Installation

@@ -37,7 +37,6 @@ describe Flyday do
     end
     it 'returns two flights when the flight has a layover' do
       VCR.use_cassette('flyday') do
-        binding.pry
         expect(@flight_with_layover.flatten.length).to eq(2)
       end
     end

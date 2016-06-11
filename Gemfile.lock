@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    flydays (0.1.0)
+      mechanize (~> 2.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -11,7 +17,7 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    domain_name (0.5.25)
+    domain_name (0.5.20160310)
       unf (>= 0.0.5, < 1.0.0)
     ffi (1.9.10)
     formatador (0.2.5)
@@ -51,7 +57,7 @@ GEM
     nenv (0.2.0)
     net-http-digest_auth (1.4)
     net-http-persistent (2.9.4)
-    nokogiri (1.6.7.1)
+    nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     notiffany (0.0.8)
       nenv (~> 0.1)
@@ -97,27 +103,28 @@ GEM
     timecop (0.8.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.1)
+    unf_ext (0.0.7.2)
     vcr (3.0.0)
     webmock (1.21.0)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
-    webrobots (0.1.1)
+    webrobots (0.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  awesome_print
-  guard
-  guard-rspec
-  mechanize
-  pry
-  pry-stack_explorer
-  rake
-  rspec
-  rspec-nc
-  simplecov
-  timecop
-  vcr
-  webmock
+  awesome_print (~> 1.6)
+  bundler (~> 1.9)
+  flydays!
+  guard (~> 2.13)
+  guard-rspec (~> 4.6)
+  pry (~> 0.10)
+  pry-stack_explorer (~> 0.4)
+  rake (~> 10.0)
+  rspec (~> 3.4)
+  rspec-nc (~> 0.2)
+  simplecov (~> 0.11)
+  timecop (~> 0.8)
+  vcr (~> 3.0)
+  webmock (~> 1.21)

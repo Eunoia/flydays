@@ -1,3 +1,5 @@
-source 'https://rubygems.org'
+require 'rake/dsl_definition'
+require 'rspec/core/rake_task'
 
-gemspec
+RSpec::Core::RakeTask.new(:spec)
+task :default => :spec
