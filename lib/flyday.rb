@@ -10,7 +10,7 @@ class Flyday
   def initialize
     @airline = 'southwest'
     @mechanize = Mechanize.new
-    @mechanize.log = Logger.new 'flyday.log'
+    #@mechanize.log = Logger.new 'flyday.log'
     @mechanize.agent.http.verify_mode = OpenSSL::SSL::VERIFY_NONE
   end
 
