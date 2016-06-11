@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Flyday do
   before do
-    Timecop.freeze(Time.local(2016, 2, 1, 12))
+    Timecop.freeze(Time.local(2016, 7, 1, 12))
     VCR.insert_cassette 'flyday'
   end
   describe '.new' do

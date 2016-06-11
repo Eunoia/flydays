@@ -60,9 +60,8 @@ class Flyday
 
     def inspect
       object = '<#Flyday::Flight'
-      takeoff = "#{departure_date}T#{departure_time}"
       fare_info = "seats:#{seats_left}, price_range:#{price_range}"
-      "#{object} #{segments_path} #{takeoff} #{fare_info}>"
+      "#{object} #{segments_path} #{takeoff_at} #{fare_info}>"
     end
   end
 end
